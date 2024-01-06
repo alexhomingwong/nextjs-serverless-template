@@ -19,6 +19,7 @@
     "remark-html": "^15.0.1"
   },
   "devDependencies": {
+    "@types/react": "^18.2.47",
     "eslint": "8.18.0",
     "eslint-config-next": "12.2.0"
   }
