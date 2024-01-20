@@ -1,9 +1,13 @@
 import Image from "next/image";
 import styles from "./page.module.css";
+// @ts-ignore
+import { signIn, signOut, useSession } from "next-auth/react";
+import Link from "next/link";
 
 export default function Home() {
   return (
     <main className={styles.main}>
+      <Link href="/api/auth/signin">Login</Link>
       <div className={styles.description}>
         <p>
           Hi. Get started by editing&nbsp;
