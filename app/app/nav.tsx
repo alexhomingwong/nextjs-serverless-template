@@ -1,7 +1,7 @@
 "use client";
 import styles from "./nav.module.css";
 import Link from "next/link";
-import { signOut } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react";
 import Image from "next/image";
 
 interface Props {
@@ -28,7 +28,7 @@ export const Nav = ({ session }: Props) => {
             <button onClick={() => signOut()}>log out</button>
           </>
         ) : (
-          <Link href="/api/auth/signin">Login</Link>
+          <button onClick={() => signIn("cognito")}>Sign in</button>
         )}
       </div>
     </nav>
