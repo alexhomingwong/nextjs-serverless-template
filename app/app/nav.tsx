@@ -1,8 +1,7 @@
-"use client";
 import styles from "./nav.module.css";
-import Link from "next/link";
-import { signIn, signOut } from "next-auth/react";
 import Image from "next/image";
+import logo from "../public/static/arsq.png";
+import { NavControl } from "./navControl";
 
 interface Props {
   session: any;
@@ -15,21 +14,14 @@ export const Nav = ({ session }: Props) => {
     <nav className={styles.nav}>
       <Image
         className={styles.logo}
-        src="/static/ar-sq.png"
+        src="/static/arsq.png"
         alt="AR Squared Logo"
         width={63.75}
         height={35}
-        priority
+        unoptimized
       />
       <div>
-        {email ? (
-          <>
-            <span>{email}</span>
-            <button onClick={() => signOut()}>log out</button>
-          </>
-        ) : (
-          <button onClick={() => signIn("cognito")}>Sign in</button>
-        )}
+        <NavControl email={email} />
       </div>
     </nav>
   );

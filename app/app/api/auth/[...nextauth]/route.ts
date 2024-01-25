@@ -9,6 +9,7 @@ const handler = NextAuth({
       issuer: process.env.COGNITO_ISSUER,
     }),
   ],
+  secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     async jwt(req) {
       const res = { ...req.token };

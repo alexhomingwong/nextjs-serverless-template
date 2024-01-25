@@ -84,6 +84,7 @@ export class NextjsLambdaCdkStack extends Stack {
           viewerProtocolPolicy:
             cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
           cachePolicy: cloudfront.CachePolicy.CACHING_DISABLED,
+          allowedMethods: cloudfront.AllowedMethods.ALLOW_ALL,
         },
         additionalBehaviors: {
           "_next/static/*": {
@@ -93,6 +94,15 @@ export class NextjsLambdaCdkStack extends Stack {
           "static/*": {
             origin: new origins.S3Origin(nextBucket),
             viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.HTTPS_ONLY,
+          },
+          "api/auth/*": {
+            origin: new origins.RestApiOrigin(api),
+            viewerProtocolPolicy:
+              cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+            cachePolicy: cloudfront.CachePolicy.CACHING_DISABLED,
+            allowedMethods: cloudfront.AllowedMethods.ALLOW_ALL,
+            originRequestPolicy:
+              cloudfront.OriginRequestPolicy.ALL_VIEWER_EXCEPT_HOST_HEADER,
           },
         },
         minimumProtocolVersion: cloudfront.SecurityPolicyProtocol.TLS_V1_2_2018,
