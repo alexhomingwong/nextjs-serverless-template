@@ -22,11 +22,12 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const session = await getServerSession(handler);
+
   return (
     <html lang="en">
       <body className={inter.className}>
         <Provider session={session}>
-          <Nav session={session} />
+          <Nav />
           {children}
         </Provider>
       </body>

@@ -1,15 +1,8 @@
 import styles from "./nav.module.css";
 import Image from "next/image";
-import logo from "../public/static/arsq.png";
 import { NavControl } from "./navControl";
 
-interface Props {
-  session: any;
-}
-
-export const Nav = ({ session }: Props) => {
-  const { email } = session?.user || {};
-
+export const Nav = () => {
   return (
     <nav className={styles.nav}>
       <Image
@@ -21,7 +14,7 @@ export const Nav = ({ session }: Props) => {
         unoptimized
       />
       <div>
-        <NavControl email={email} />
+        <NavControl />
       </div>
     </nav>
   );
