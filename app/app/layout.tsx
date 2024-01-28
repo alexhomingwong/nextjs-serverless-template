@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Provider from "../providers/authProvider";
+import ConfigureAmplifyClientSide from "@/amplify/amplifyClient";
 import { Nav } from "./nav";
+import AuthProvider from "@/providers/authProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,10 +23,11 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Provider>
+        <ConfigureAmplifyClientSide />
+        <AuthProvider>
           <Nav />
           {children}
-        </Provider>
+        </AuthProvider>
       </body>
     </html>
   );
