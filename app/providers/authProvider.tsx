@@ -1,23 +1,14 @@
 "use client";
+import { createContext, useState } from "react";
 
-import { Session } from "next-auth";
-import { getSession } from "next-auth/react";
-import { createContext, useEffect, useState } from "react";
-
-export const AuthContext = createContext<null | Session>(null);
+export const AuthContext = createContext<null>(null);
 
 export default function Provider({
   children,
 }: {
   children: React.ReactNode;
 }): React.ReactNode {
-  const [session, setSession] = useState<null | Session>(null);
-
-  useEffect(() => {
-    getSession().then((currentSession: any) => {
-      setSession(currentSession);
-    });
-  }, []);
+  const [session, setSession] = useState<null>(null);
 
   return (
     <AuthContext.Provider value={session}>{children}</AuthContext.Provider>
