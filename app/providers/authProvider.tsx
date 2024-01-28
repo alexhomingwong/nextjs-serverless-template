@@ -1,13 +1,25 @@
 "use client";
 
-import { SessionProvider } from "next-auth/react";
+import { Session } from "next-auth";
+import { getSession } from "next-auth/react";
+import { createContext, useEffect, useState } from "react";
+
+export const AuthContext = createContext<null | Session>(null);
 
 export default function Provider({
   children,
-  session,
 }: {
   children: React.ReactNode;
-  session: any;
 }): React.ReactNode {
-  return <SessionProvider session={session}>{children}</SessionProvider>;
+  const [session, setSession] = useState<null | Session>(null);
+
+  useEffect(() => {
+    getSession().then((currentSession: any) => {
+      setSession(currentSession);
+    });
+  }, []);
+
+  return (
+    <AuthContext.Provider value={session}>{children}</AuthContext.Provider>
+  );
 }

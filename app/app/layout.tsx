@@ -5,6 +5,7 @@ import Provider from "../providers/authProvider";
 import { getServerSession } from "next-auth/next";
 import { GET as handler } from "@/app/api/auth/[...nextauth]/route";
 import { Nav } from "./nav";
+import { getSession } from "next-auth/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,12 +22,10 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getServerSession(handler);
-
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Provider session={session}>
+        <Provider>
           <Nav />
           {children}
         </Provider>

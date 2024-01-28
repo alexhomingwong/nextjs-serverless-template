@@ -2,14 +2,28 @@
 
 import { signIn, signOut, useSession } from "next-auth/react";
 
+import { AuthContext } from "@/providers/authProvider";
+import { useContext } from "react";
+import { redirect } from "next/navigation";
+
+import { useRouter } from "next/navigation";
+
 export const NavControl = () => {
-  const { data: session } = useSession();
+  const session = useContext(AuthContext);
+
+  const router = useRouter();
   const { email } = session?.user || {};
 
   return email ? (
     <>
       <span>{email}</span>
-      <button onClick={() => signOut()}>log out</button>
+      <button
+        onClick={() => {
+          signOut({ callbackUrl: "/api/sso/logout" });
+        }}
+      >
+        log out
+      </button>
     </>
   ) : (
     <button onClick={() => signIn("cognito")}>Sign in</button>
