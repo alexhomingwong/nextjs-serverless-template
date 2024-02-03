@@ -1,31 +1,28 @@
 "use client";
 
-import { signIn, signOut, useSession } from "next-auth/react";
-
 import { AuthContext } from "@/providers/authProvider";
-import { useContext } from "react";
+import { signOut } from "@aws-amplify/auth";
+import Link from "next/link";
 import { redirect } from "next/navigation";
-
-import { useRouter } from "next/navigation";
+import { useContext } from "react";
 
 export const NavControl = () => {
-  const session = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
-  const router = useRouter();
-  const { email } = session?.user || {};
-
-  return email ? (
+  return user?.email ? (
     <>
-      <span>{email}</span>
+      <div>Hi {user.email}</div>
+
       <button
         onClick={() => {
-          signOut({ callbackUrl: "/api/sso/logout" });
+          signOut();
+          redirect("/");
         }}
       >
-        log out
+        Sign out
       </button>
     </>
   ) : (
-    <button onClick={() => signIn("cognito")}>Sign in</button>
+    <Link href="/auth">Sign in</Link>
   );
 };
